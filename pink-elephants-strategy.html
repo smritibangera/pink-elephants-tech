@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reach, referral and data: a strategy note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --teal:#365F5E;
+  --teal-dark:#2A4A49;
+  --teal-soft:#EEF3F2;
+  --blush:#F7D3E3;
+  --blush-soft:#FBF2F6;
+  --plum:#723750;
+  --pink:#E56EA2;
+  --ink:#2B2B2B;
+  --ink-soft:#54504F;
+  --muted:#847E7D;
+  --paper:#FFFFFF;
+  --line:#E3E1E1;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Manrope',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:740px;margin:0 auto;padding:64px 24px 100px;}
+header{margin-bottom:48px;}
+.eyebrow{
+  font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:10px;
+}
+h1{
+  font-family:'Lora',Georgia,serif;font-weight:700;
+  font-size:38px;line-height:1.15;letter-spacing:-.01em;color:var(--teal);
+  margin:0 0 12px;
+}
+.meta{font-size:13.5px;color:var(--muted);font-weight:600;}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-soft);margin-top:20px;max-width:60ch;}
+
+h2{
+  font-family:'Lora',Georgia,serif;font-weight:700;
+  font-size:24px;color:var(--teal);letter-spacing:-.005em;
+  margin:52px 0 14px;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{
+  font-size:15.5px;font-weight:800;color:var(--plum);
+  margin:26px 0 8px;
+  text-transform:uppercase;letter-spacing:.03em;
+}
+p{margin:0 0 14px;color:var(--ink-soft);}
+strong{color:var(--ink);font-weight:700;}
+a{color:var(--pink);text-decoration:underline;text-underline-offset:2px;}
+
+ul,ol{margin:0 0 16px;padding-left:22px;}
+li{margin-bottom:8px;color:var(--ink-soft);}
+li::marker{color:var(--pink);}
+
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:14.5px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  font-weight:800;background:var(--teal-soft);
+}
+tr:last-child td{border-bottom:none;}
+
+.note{
+  background:var(--blush-soft);
+  border-left:3px solid var(--pink);
+  padding:14px 18px;
+  border-radius:0 6px 6px 0;
+  font-size:14.5px;
+  margin:16px 0 22px;
+}
+.note p{margin:0;color:var(--ink-soft);}
+.note strong{color:var(--plum);}
+
+.q{font-style:italic;color:var(--teal);font-family:'Lora',serif;font-size:17px;}
+
+code{
+  font-family:'SF Mono',Consolas,Menlo,monospace;
+  font-size:13px;background:var(--teal-soft);color:var(--teal-dark);
+  padding:1px 6px;border-radius:4px;
+}
+pre{
+  background:#1d2b2a;color:#dfeeec;
+  padding:18px 20px;border-radius:8px;
+  overflow-x:auto;font-size:13px;line-height:1.6;
+  margin:10px 0 22px;
+}
+pre code{background:none;color:inherit;padding:0;font-size:inherit;}
+.diagram{
+  background:var(--teal-soft);border-radius:8px;padding:20px 22px;
+  font-family:'SF Mono',Consolas,Menlo,monospace;font-size:12.5px;
+  line-height:1.7;color:var(--teal-dark);margin:10px 0 22px;
+  white-space:pre;overflow-x:auto;
+}
+.stack-tag{
+  display:inline-block;background:var(--teal-soft);color:var(--teal-dark);
+  font-family:'SF Mono',Consolas,Menlo,monospace;font-size:12px;
+  padding:2px 8px;border-radius:4px;margin:2px 3px 2px 0;
+}
+
+footer{
+  margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);
+}
+
+@media (max-width:600px){
+  .wrap{padding:40px 18px 70px;}
+  h1{font-size:30px;}
+  h2{font-size:21px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">The Pink Elephants Support Network: strategy note</div>
+  <h1>Reach, referral and data</h1>
+  <div class="meta">Smriti Bangera · 21 September 2026</div>
+  <p class="lede">The AI SEO project covers how she finds you when she searches. This note covers the other two ways people find Pink Elephants: a doctor's referral, and the data that referral work can produce, and what I'd do about both in the first ninety days.</p>
+</header>
+
+<h2>How people actually arrive</h2>
+<p>There are three routes to Pink Elephants: she searches for it herself, her doctor refers her, or someone in her life passes it on. The SEO project is about the first route. This note is about the second, and about the data layer that sits behind all three.</p>
+<p>The referral route matters most because it's the highest-trust moment there is: a clinician, at the point of diagnosis, telling her where to go next. Right now that depends entirely on whether the individual clinician happens to know your name.</p>
+
+<h2>What's already working</h2>
+<p>Worth stating plainly, because it's a genuinely strong position to build from:</p>
+<ul>
+  <li><strong>Government already backs you as the lead organisation in this space.</strong> $4m of the ~$5.2m federal miscarriage support package went to Pink Elephants; Red Nose received $887,600 in the same round. <em>(Dept of Health & Aged Care, March 2025.)</em></li>
+  <li><strong>You're already inside the national health system.</strong> An accredited healthdirect information partner, listed on Pregnancy Birth and Baby, with the helpline delivered by PANDA.</li>
+  <li><strong>The move off Facebook groups was the right call.</strong> The old groups couldn't track who needed what, and the platform's ad algorithm was showing baby products to grieving members. Moving to owned infrastructure is what makes any of the below possible.</li>
+  <li><strong>The funding for this work already exists.</strong> The Fussell Family gift (July 2026) names digital referral pathways, personalisation and data infrastructure specifically. The mandate is already there. This is about how to spend it well.</li>
+</ul>
+
+<h2>The opening: a national guideline with a blank line in it</h2>
+<p>RANZCOG published Australia's first national miscarriage guideline in April 2025. It instructs every GP and specialist to acknowledge the loss, offer counselling, and give the patient <span class="q">"helpful contacts, support services"</span> at the point of diagnosis.</p>
+<p>It doesn't say whose contacts. The only organisation it names is Miscarriage Australia, which is an information website, not a support service. That's a real gap in the national standard of care, and it's the clearest reason to invest in the referral side specifically, rather than treating search and referral as competing priorities.</p>
+
+<h2>Four concrete ways into the referral pathway</h2>
+<p>None of these need a software build to start, but two of them depend on work only engineering can do first: a clinician can't refer to a page a search engine can't read, and a directory listing is only as good as the structured data behind it.</p>
+<table>
+  <tr><th>Route</th><th>What it takes</th><th>Cost / time</th></tr>
+  <tr>
+    <td><strong>GP desktop fact sheets</strong></td>
+    <td>Best Practice and MedicalDirector both carry a fact-sheet sidebar that already includes not-for-profit resources. They take suggestions directly, and the sheet needs to be clean HTML with correct medical terminology so it survives their editorial review.</td>
+    <td>Free to submit</td>
+  </tr>
+  <tr>
+    <td><strong>Rural doctor CPD accreditation</strong></td>
+    <td>ACRRM accredits a single training activity, not a whole provider. A GP meets Pink Elephants during training rather than trying to recall it mid-consult.</td>
+    <td>Free · ~10 business days</td>
+  </tr>
+  <tr>
+    <td><strong>National services directory</strong></td>
+    <td>healthdirect's Service Finder takes over a million searches a month and feeds clinician referral lookups. Getting listed correctly means the service record uses the right SNOMED CT-AU service type and carries structured fields for cost, referral requirement and delivery mode, not just an address and phone number.</td>
+    <td>Free · needs an audit</td>
+  </tr>
+  <tr>
+    <td><strong>HealthPathways (region by region)</strong></td>
+    <td>The portal GPs actually open mid-consultation. No public form. It's a relationship with each region's clinical editor, built one region at a time.</td>
+    <td>Slower, highest long-term value</td>
+  </tr>
+</table>
+<p>(The RACGP's own provider accreditation costs $1,995/year and requires six months of prior GP-education experience, so it's realistically a year-two goal rather than something to chase now.)</p>
+
+<h3>Why the site itself blocks all of this right now</h3>
+<p>The current site is an Angular single-page app: the server sends a near-empty HTML shell and the content is built client-side in the browser. Google's crawler executes JavaScript, so it still indexes the site, but most AI crawlers, healthdirect's ingestion, and simple fact-sheet scrapers don't run a full browser. What they fetch is the empty shell. That's a rendering problem, not a content problem, and it's upstream of every referral channel above.</p>
+<p>The fix is server-side rendering (or static pre-rendering) for the public content pages, so the HTML that arrives on first request already contains the text. Angular Universal is the direct route if Pixell's stack supports it; a prerendering layer (Rendertron or a similar service sitting in front of the app) is a faster interim step if a full SSR migration isn't something Pixell can schedule quickly. I'd want that conversation with them in week one, because it gates almost everything else.</p>
+<p>Alongside that, each page needs machine-readable markup describing what it actually is, using <a href="https://schema.org/" target="_blank" rel="noopener">schema.org</a> structured data as JSON-LD in the page head:</p>
+<pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "about": { "@type": "MedicalCondition", "name": "Ectopic pregnancy" },
+  "audience": { "@type": "PeopleAudience", "audienceType": "patients" },
+  "lastReviewed": "2026-06-01",
+  "reviewedBy": {
+    "@type": "Organization",
+    "name": "The Pink Elephants Support Network"
+  },
+  "mainEntity": {
+    "@type": "MedicalOrganization",
+    "name": "The Pink Elephants Support Network",
+    "url": "https://www.pinkelephants.org.au",
+    "availableService": {
+      "@type": "MedicalTherapy",
+      "name": "Pregnancy Loss Helpline",
+      "provider": "PANDA",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "1300 726 306"
+      }
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+<p>This is the same markup that lets a search engine or an AI system correctly attribute a fact to Pink Elephants rather than paraphrasing it from somewhere else, and it's a prerequisite for the healthdirect and fact-sheet integrations above, both of which ingest structured data rather than reading prose.</p>
+
+<h2>Where reach and data become the same project</h2>
+<p>The routing tool isn't just a feature that happens to log things. The log is the point. Every time it helps one woman find the right next step, it also writes a line of data that doesn't exist anywhere else in Australia:</p>
+<ul>
+  <li><strong>Support:</strong> what actually fits whom, and what's offered versus what's taken up: a live picture instead of an assumption built up over ten years.</li>
+  <li><strong>Advocacy:</strong> unmet need by loss type and region, updating continuously, rather than a report that has to be re-commissioned each time.</li>
+  <li><strong>Awareness:</strong> figures from the point of loss itself, not from a clinical sample months later: a dataset no one else is positioned to build.</li>
+</ul>
+<p>Concretely, a routing event is a small record, written once, that never carries a name:</p>
+<div class="diagram">{
+  "event_id": "a routing token, not a person",
+  "timestamp": "2026-09-21T14:32:00+10:00",
+  "entry_channel": "referral_qr | search | word_of_mouth",
+  "loss_type": "early_miscarriage | late_loss | ectopic | molar | stillbirth",
+  "presented_options": ["peer_support", "counselling_directory", "helpline"],
+  "selected_option": "peer_support",
+  "region": "SA3 code, not a postcode or address",
+  "session_token": "rotates, never stored against a person"
+}</div>
+<p>Nothing in that record identifies her. <span class="stack-tag">loss_type</span> and <span class="stack-tag">region</span> are the two fields that make the AIHW-shaped reporting possible; <span class="stack-tag">presented_options</span> vs <span class="stack-tag">selected_option</span> is what turns "we offer support" into "here's what's actually taken up." If a phone number or email is collected later for follow-up, it lives in a separate table, linked only by a one-way token, so a breach of one side doesn't expose the other. This is what "collect need, not identity" means as an actual database design, not just a principle, and it's cheap to build this way from day one and expensive to retrofit later.</p>
+<p>On the AI question directly: the routing logic itself should be a deterministic decision tree, not a model. Given a small, fixed set of inputs (loss type, what's already been tried, stated preference for peer vs clinical support), a rules engine is auditable, explainable to a grieving user if asked, and can't hallucinate a recommendation. The one place a language model earns its keep is tagging free-text responses (turning "I don't want to talk to strangers yet" into a structured preference), and even there, identifiers are stripped before anything leaves our systems, and any external API used carries a written no-training, no-retention data processing agreement, in line with the OAIC's October 2024 guidance on using commercial generative AI tools. That's a narrow, reviewable role, not a chatbot standing in for a person.</p>
+<p>This is worth designing together with the Head of Data and Insights from the start rather than handing over afterwards. The schema is better for having two people in the room when it's built.</p>
+
+<div class="note"><p><strong>Why now:</strong> in July 2026 the AIHW published Australia's first national scoping study on pregnancy loss, and its headline finding was an absence: there's no national register, and the familiar figures (100,000 a year, 285 a day) are all the same estimate restated, not a count. That's a genuine gap a national regulator has just named, and Pink Elephants is positioned to be the one to help close it.</p></div>
+
+<h2>The first ninety days</h2>
+<h3>Weeks 1–4: see what's actually happening</h3>
+<ul>
+  <li>Set a real baseline: where people arrive from, where they drop off, what they never find.</li>
+  <li>Audit every place the Pink Elephants name already appears that isn't directly managed.</li>
+  <li>Talk to Pixell about what the site can and can't be changed to do.</li>
+  <li>Write down the position on privacy, consent and data retention before any new field is collected.</li>
+</ul>
+<h3>Weeks 3–9: open the referral pathway</h3>
+<ul>
+  <li>Start with the free, fast routes: CPD accreditation and the fact-sheet libraries.</li>
+  <li>Correct and complete the national directory listings.</li>
+  <li>Form a small GP advisory group. It's the credential that makes the rest of this easier.</li>
+  <li>Build a clinician-facing page focused on referral, not just information.</li>
+</ul>
+<h3>Weeks 8–13: route, and start counting</h3>
+<ul>
+  <li>Build the support-matching tool, reviewed by peer companions before it goes live.</li>
+  <li>Design consent and data handling together with the Head of Data and Insights.</li>
+  <li>Check capacity before driving more traffic. More people arriving only helps if support can hold.</li>
+  <li>First readout against the week-one baseline.</li>
+</ul>
+
+<h2>Who does what</h2>
+<p>A starting point to discuss, not a claim on anyone's territory:</p>
+<table>
+  <tr><th>Role</th><th>Focus</th></tr>
+  <tr><td><strong>Me</strong></td><td>The technical build: making the site readable, the routing logic, clinician distribution, tool selection, and the privacy/security architecture.</td></tr>
+  <tr><td><strong>Head of Data & Insights</strong></td><td>What questions are worth asking, the analysis, funder reporting, research partnerships.</td></tr>
+  <tr><td><strong>Sam and the team</strong></td><td>Relationships that need a founder: PHNs, colleges, government, Miscarriage Australia, and final judgement on anything a grieving woman will read.</td></tr>
+  <tr><td><strong>Pixell, PANDA, partners</strong></td><td>The parts outside our control. Worth raising early since their timelines set the pace for everything else.</td></tr>
+</table>
+
+<h2>Ethics, privacy and security</h2>
+<p>A list of Australian women who've had a miscarriage, with contact details, is about as sensitive as data gets. Three things I'd hold to from day one:</p>
+<h3>Automation helps someone find a human faster: it never replaces one</h3>
+<p>Two well-documented nonprofit failures (a US eating disorder charity's chatbot, and a peer-support platform that used undisclosed AI-generated replies) both did real, lasting damage by putting unsupervised automation between a vulnerable person and a human. AI belongs behind the scenes, helping our people respond faster and better, never in front of someone on the worst day of their life. And when something is automated, we say so.</p>
+<h3>Collect need, not identity</h3>
+<p>The system doesn't need her name to route her correctly. If need is held separately from identity from the first record (the schema above), the dataset is publishable, shareable with researchers, and structurally much harder to turn into the kind of breach that damages a charity. This is much easier to build in from the start than to retrofit later.</p>
+<p>In practice, on the Salesforce side that means three concrete decisions, not just a policy statement: identity fields (name, phone, email) get field-level encryption rather than sitting in plain text alongside case notes; a scheduled purge job enforces the retention schedule automatically, so "we said we'd delete it after two years" doesn't quietly depend on someone remembering to; and every read of an identified record is logged, so if something does go wrong, we can say exactly who accessed what and when, which is also what the Notifiable Data Breach scheme expects an organisation to be able to produce.</p>
+<h3>It signposts: it never diagnoses</h3>
+<p>No scores, no risk ratings, no "you may have complicated grief." That's also what keeps the tool outside medical device regulation, a deliberate design choice rather than just a legal workaround.</p>
+
+<h3>The legal floor, briefly</h3>
+<ul>
+  <li>Miscarriage is health information, which counts as sensitive information under the Privacy Act. Collecting it needs consent that's specific and clearly given, not a box ticked alongside a newsletter signup.</li>
+  <li>The usual small-charity exemption from the Privacy Act likely doesn't apply here, because organisations that assess and record health information are covered regardless of size. Opting in voluntarily is free, and turns an argument we'd probably lose into a trust signal instead.</li>
+  <li>Vendors are a real risk: the Australian Red Cross Blood Service breach (2016) exposed 550,000 people's data, including pregnancy history, because of a contractor's mistake. The organisation was still held responsible.</li>
+  <li>Keeping data longer than needed is the biggest multiplier of harm if something does go wrong. A clear retention schedule, decided early, is one of the highest-value things a small team can do.</li>
+</ul>
+
+<h2>What I'd want to ask</h2>
+<ol>
+  <li>What's actually in scope with Pixell, and how quickly can they turn around a meaningful change?</li>
+  <li>What does Salesforce already capture about how someone arrives, and where would routing data naturally sit?</li>
+  <li>When does the Freshdesk migration finish? Routing should point at the destination, not the system being replaced.</li>
+  <li>How much more volume can peer support take on before it stops being good support?</li>
+  <li>When does the Head of Data and Insights start, and how would the two roles best work together?</li>
+</ol>
+
+<footer>
+  Smriti Bangera · smriti.bangera99@gmail.com
+</footer>
+
+</div>
+</body>
+</html>
