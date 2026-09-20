@@ -1,1 +1,0 @@
-# pink-elephants-tech
