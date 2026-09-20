@@ -1,0 +1,1017 @@
+<title>Find Support Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+  /*
+    Colour, type and button values below were read directly off
+    pinkelephants.org.au/find-support (computed styles + screenshot),
+    not invented. This page deliberately does not adapt to the viewer's
+    dark-mode setting — it is meant to preview how the quiz sits inside
+    Pink Elephants' actual site, and that site has one light look, not two.
+  */
+  :root{
+    --teal:#365F5E;
+    --teal-dark:#2A4A49;
+    --pink-blush:#F7D3E3;
+    --plum:#723750;
+    --pink-accent:#E56EA2;
+    --ink:#333333;
+    --ink-soft:#5B5B5B;
+    --muted:#807B7B;
+    --paper:#FFFFFF;
+    --band:#F0F0F1;
+    --surface:#FFFFFF;
+    --line:#E3E1E1;
+    --line-strong:#CFCACA;
+    --calm:#365F5E;
+    --calm-soft:#E7EFEE;
+    --urgent:#B3261E;
+    --urgent-soft:#FBEAEA;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06);
+  }
+  body{background:var(--paper);}
+
+  *{box-sizing:border-box;}
+  body{
+    color:var(--ink);
+    font-family:'Manrope',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    margin:0;
+    padding-inline:0;
+    padding-block:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  .previewtag{
+    background:var(--teal);
+    color:#fff;
+    text-align:center;
+    font-family:'Manrope',sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    padding:8px 16px;
+    padding-top:calc(8px + env(safe-area-inset-top, 0px));
+  }
+
+  /* ---- mocked site chrome ---- */
+  .utilbar{
+    background:var(--band);
+    display:flex;justify-content:flex-end;gap:20px;
+    padding:7px 24px;
+    font-size:12.5px;color:var(--ink-soft);font-weight:600;
+  }
+  .sitehead{
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+  }
+  .wordmark{display:flex;flex-direction:column;line-height:1;}
+  .wordmark .the{
+    font-family:'Lora',serif;font-style:italic;font-weight:500;
+    font-size:12px;color:var(--pink-accent);margin-left:2px;
+  }
+  .wordmark .name{
+    font-family:'Manrope',sans-serif;font-weight:800;
+    font-size:19px;color:var(--ink);letter-spacing:-0.01em;
+  }
+  .wordmark .tag{
+    font-family:'Manrope',sans-serif;font-weight:600;
+    font-size:9px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--muted);margin-top:2px;
+  }
+  .sitenav{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .sitenav a{
+    font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:none;
+  }
+  .navctas{display:flex;gap:10px;flex-wrap:wrap;}
+  .navbtn{
+    font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:700;
+    border-radius:99px;padding:9px 20px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  }
+  .navbtn.teal{background:var(--teal);color:#fff;}
+  .navbtn.blush{background:var(--pink-blush);color:var(--plum);}
+
+  .crumbbar{
+    background:var(--paper);
+    padding:14px 24px 0;
+    max-width:960px;margin:0 auto;
+  }
+  .crumb{font-size:13px;color:var(--muted);}
+  .crumb a{color:var(--pink-accent);font-weight:600;text-decoration:none;}
+
+  .band{
+    background:var(--band);
+    padding:26px 24px 30px;
+  }
+  .bandinner{max-width:960px;margin:0 auto;}
+  .band h1{
+    font-family:'Lora',serif;font-weight:700;
+    font-size:clamp(30px,5vw,42px);
+    color:var(--teal);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .band p{
+    max-width:56ch;color:var(--ink);font-size:15.5px;line-height:1.6;margin:0;
+  }
+
+  .newmodule{
+    max-width:960px;margin:-14px auto 0;padding:0 24px 40px;
+  }
+  .newflag{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--pink-blush);color:var(--plum);
+    font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;
+    padding:5px 12px;border-radius:99px;margin-bottom:14px;
+  }
+
+  /* ---- quiz shell ---- */
+  .shell{max-width:640px;margin:0 auto;padding-block:0 70px;}
+
+  .quickexit{
+    position:fixed;
+    top:calc(52px + env(safe-area-inset-top, 0px));
+    right:16px;
+    z-index:40;
+    font-family:'Manrope',sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink-soft);
+    background:var(--surface);
+    border:1px solid var(--line-strong);
+    border-radius:99px;
+    padding:8px 14px;
+    min-height:44px;
+    display:flex;align-items:center;gap:6px;
+    text-decoration:none;
+    box-shadow:var(--shadow);
+  }
+  .quickexit:hover{color:var(--ink);border-color:var(--muted);}
+
+  .helpbar{
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:30;
+    background:var(--calm-soft);
+    border-top:1px solid var(--line);
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    display:flex;align-items:center;justify-content:center;
+    gap:10px;flex-wrap:wrap;text-align:center;
+  }
+  .helpbar span{font-size:12.5px;color:var(--ink-soft);}
+  .helpbar a{
+    font-size:13px;font-weight:700;color:var(--calm);
+    text-decoration:none;border-bottom:1.5px solid var(--calm);
+    padding-bottom:1px;white-space:nowrap;
+    min-height:24px;display:inline-flex;align-items:center;
+  }
+
+  .prog{display:flex;gap:5px;margin-bottom:22px;}
+  .prog i{height:3px;flex:1;border-radius:99px;background:var(--line);}
+  .prog i.on{background:var(--teal);}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px 26px;
+    box-shadow:var(--shadow);
+  }
+
+  h1.qh, h1{
+    font-family:'Lora',serif;font-weight:700;
+    font-size:clamp(24px,4.4vw,31px);
+    line-height:1.18;letter-spacing:-0.01em;
+    margin:0 0 10px;color:var(--teal);
+    text-wrap:balance;
+  }
+  h2.q{
+    font-family:'Lora',serif;font-weight:700;
+    font-size:clamp(20px,3.4vw,24px);
+    line-height:1.25;letter-spacing:-0.01em;
+    margin:0 0 6px;color:var(--teal);
+    text-wrap:balance;
+  }
+  p.help{color:var(--ink-soft);font-size:14.5px;line-height:1.55;margin:0 0 22px;}
+  p.intro{color:var(--ink);font-size:16px;line-height:1.6;margin:0 0 20px;}
+
+  .opts{display:flex;flex-direction:column;gap:9px;}
+
+  button.opt{
+    font-family:inherit;font-size:15.5px;line-height:1.4;
+    text-align:left;width:100%;min-height:44px;
+    background:var(--surface);color:var(--ink);
+    border:1.5px solid var(--line);
+    border-radius:12px;padding:15px 16px;cursor:pointer;
+    display:flex;align-items:flex-start;gap:12px;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  button.opt:hover{border-color:var(--line-strong);background:var(--band);}
+  button.opt:active{transform:scale(.995);}
+  button.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--calm-soft);}
+  button.opt .tick{
+    flex:none;width:22px;height:22px;border-radius:50%;
+    border:1.5px solid var(--line-strong);margin-top:1px;
+    display:grid;place-items:center;
+  }
+  button.opt[aria-pressed="true"] .tick{border-color:var(--teal);background:var(--teal);}
+  button.opt[aria-pressed="true"] .tick::after{
+    content:"";width:6px;height:6px;border-radius:50%;background:#fff;
+  }
+  button.opt .lab{display:flex;flex-direction:column;gap:2px;}
+  button.opt .lab b{font-weight:700;}
+  button.opt .lab small{color:var(--muted);font-size:13px;line-height:1.4;}
+  :focus-visible{outline:2.5px solid var(--pink-accent);outline-offset:2px;border-radius:10px;}
+
+  button.morelink{
+    font-family:inherit;font-size:14px;font-weight:700;
+    background:none;border:none;color:var(--pink-accent);
+    cursor:pointer;padding:11px 4px;text-align:left;min-height:44px;
+  }
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px;flex-wrap:wrap;}
+  button.primary{
+    font-family:inherit;font-size:15.5px;font-weight:700;
+    background:var(--teal);color:#fff;
+    border:none;border-radius:99px;
+    padding:13px 28px;cursor:pointer;min-height:44px;
+    transition:background .15s ease, opacity .15s ease;
+  }
+  button.primary:hover{background:var(--teal-dark);}
+  button.primary:disabled{opacity:.35;cursor:not-allowed;}
+  button.ghost{
+    font-family:inherit;font-size:14.5px;font-weight:600;
+    background:none;border:none;color:var(--muted);
+    cursor:pointer;padding:10px 4px;text-decoration:underline;text-underline-offset:3px;
+    min-height:44px;
+  }
+  button.ghost:hover{color:var(--ink);}
+  button.ghost[hidden]{display:none!important;}
+
+  .urgent{
+    background:var(--urgent-soft);
+    border:1.5px solid var(--urgent);
+    border-radius:13px;padding:17px 18px;margin-bottom:20px;
+    display:flex;flex-direction:column;gap:7px;
+  }
+  .urgent b{color:var(--urgent);font-size:15px;font-weight:700;}
+  .urgent p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.55;}
+  .urgent a{color:var(--urgent);font-weight:700;}
+
+  .res-head{margin-bottom:22px;}
+  .res-head h1{margin-bottom:8px;}
+  .summary{
+    font-size:14px;color:var(--ink-soft);
+    background:var(--band);border-radius:11px;padding:13px 15px;line-height:1.55;
+  }
+  .match{
+    background:var(--surface);border:1.5px solid var(--line);
+    border-radius:14px;padding:22px 21px;margin-bottom:12px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .match.top{border-color:var(--teal);box-shadow:var(--shadow);}
+  .match-rank{
+    font-size:10.5px;font-weight:800;letter-spacing:0.11em;text-transform:uppercase;
+    color:var(--pink-accent);
+  }
+  .match h3{
+    font-family:'Lora',serif;font-weight:700;font-size:19px;line-height:1.25;margin:0;
+    letter-spacing:-0.01em;color:var(--teal);
+  }
+  .match .desc{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+  .match .why{
+    font-size:13.5px;color:var(--ink);line-height:1.5;margin:0;
+    padding-left:12px;border-left:2px solid var(--pink-accent);
+  }
+  .match .meta{font-size:12.5px;color:var(--muted);margin:0;}
+  .match .go{
+    align-self:flex-start;font-size:14.5px;font-weight:700;color:var(--pink-accent);
+    text-decoration:none;border-bottom:1.5px solid var(--pink-accent);padding-bottom:1px;
+  }
+  .match .go:hover{color:var(--plum);border-color:var(--plum);}
+
+  .sect-label{
+    font-size:11px;font-weight:800;letter-spacing:0.11em;text-transform:uppercase;
+    color:var(--muted);margin:28px 0 12px;
+  }
+  .reslist{display:flex;flex-direction:column;gap:9px;}
+  .resitem{
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:11px;padding:13px 15px;flex-wrap:wrap;
+  }
+  .resitem span{font-size:14.5px;}
+  .resitem a{font-size:13.5px;font-weight:700;color:var(--pink-accent);white-space:nowrap;}
+
+  .footnote{margin-top:26px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+  .restart{margin-top:18px;}
+
+  .savebox{
+    margin-top:24px;background:var(--band);border-radius:14px;padding:19px 20px;
+    display:flex;flex-direction:column;gap:11px;
+  }
+  .savebox h4{margin:0;font-size:14.5px;font-weight:800;color:var(--teal);}
+  .savebox p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  .saverow{display:flex;flex-wrap:wrap;gap:9px;}
+  .savebtn{
+    font-family:inherit;font-size:13.5px;font-weight:700;
+    background:var(--surface);color:var(--ink);
+    border:1.5px solid var(--line-strong);border-radius:99px;
+    padding:10px 16px;min-height:44px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;
+    text-decoration:none;box-sizing:border-box;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .savebtn:hover{border-color:var(--teal);background:var(--calm-soft);}
+  .savebtn.done{border-color:var(--teal);color:var(--teal);}
+  .savefallback{
+    margin-top:2px;width:100%;min-height:110px;
+    font-family:'Manrope',monospace;font-size:12.5px;line-height:1.5;
+    padding:12px;border-radius:10px;border:1px solid var(--line-strong);
+    background:var(--surface);color:var(--ink);resize:vertical;
+  }
+  .savefallback[hidden]{display:none;}
+
+  /* ---- rest of the real page, shown collapsed below for context ---- */
+  .restofpage{max-width:960px;margin:0 auto;padding:8px 24px 60px;}
+  .restofpage .sect-title{
+    font-family:'Lora',serif;font-weight:700;font-size:24px;color:var(--teal);
+    margin:0 0 6px;
+  }
+  .restofpage .sect-sub{font-size:14px;color:var(--ink-soft);margin:0 0 20px;max-width:60ch;}
+  .oldgrid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+  }
+  .oldcard{
+    border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;
+  }
+  .oldcard .ph{
+    height:110px;
+    background:linear-gradient(135deg, var(--pink-blush), var(--calm-soft));
+  }
+  .oldcard .body{padding:16px 18px 20px;}
+  .oldcard h4{
+    font-family:'Lora',serif;font-weight:700;font-size:17px;color:var(--teal);margin:0 0 6px;
+  }
+  .oldcard p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5;}
+  .siteftr{
+    background:var(--teal);color:#fff;padding:26px 24px;text-align:center;
+    font-size:12.5px;
+  }
+
+  @media(max-width:640px){
+    .sitenav{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+
+<div class="previewtag">Page mockup — showing where this would sit on pinkelephants.org.au/find-support</div>
+
+<a class="quickexit" id="quickexit" href="https://www.bom.gov.au" rel="noopener" aria-label="Leave this page quickly and go to an unrelated site">Quick exit</a>
+
+<div class="utilbar"><span>News</span><span>Contact</span><span>Login</span></div>
+<div class="sitehead">
+  <div class="wordmark">
+    <span class="the">the</span>
+    <span class="name">pink elephants</span>
+    <span class="tag">Support Network</span>
+  </div>
+  <div class="sitenav">
+    <a href="#">Your Support Journey</a>
+    <a href="#">Help a Loved One</a>
+    <a href="#">Get Involved</a>
+    <a href="#">About Us</a>
+    <a href="#">Advocacy</a>
+  </div>
+  <div class="navctas">
+    <a class="navbtn teal" href="#">The Circle</a>
+    <a class="navbtn blush" href="#">♥ Donate</a>
+  </div>
+</div>
+<div class="crumbbar">
+  <div class="crumb"><a href="#">Home</a> &nbsp;›&nbsp; <a href="#">Your Support Journey</a> &nbsp;›&nbsp; Find Support</div>
+</div>
+
+<div class="band">
+  <div class="bandinner">
+    <h1>Find Support</h1>
+    <p>A few different ways to find what fits, whenever you are ready.</p>
+  </div>
+</div>
+
+<div class="newmodule">
+  <span class="newflag">New — try this first</span>
+
+  <div class="shell">
+    <div class="prog" id="prog" aria-hidden="true"></div>
+    <div class="card" id="card" role="region" aria-live="polite"></div>
+    <p class="footnote" id="footnote">
+      A working prototype built by Smriti Bangera against Pink Elephants' real support services. Routing logic is illustrative and the wording needs a Peer Support Companion's review before it goes anywhere near the public. You do not need to give your name anywhere on this page.
+    </p>
+  </div>
+</div>
+
+<div class="restofpage">
+  <div class="sect-title">Or explore everything we offer</div>
+  <p class="sect-sub">The quiz above is a shortcut. Everything it points to also lives here, for anyone who would rather browse.</p>
+  <div class="oldgrid">
+    <div class="oldcard"><div class="ph"></div><div class="body"><h4>The Circle</h4><p>Personalised support, connecting you with resources, peer companions and a community.</p></div></div>
+    <div class="oldcard"><div class="ph"></div><div class="body"><h4>1:1 LiveChat</h4><p>One-on-one online connection with a Peer Support Companion.</p></div></div>
+    <div class="oldcard"><div class="ph"></div><div class="body"><h4>Pregnancy Loss Helpline</h4><p>Free counselling, delivered by PANDA, for you and your partner.</p></div></div>
+    <div class="oldcard"><div class="ph"></div><div class="body"><h4>Online Communities</h4><p>Private groups where women talk honestly about loss.</p></div></div>
+    <div class="oldcard"><div class="ph"></div><div class="body"><h4>Emotional Wellbeing</h4><p>Resources to sit with when talking is too much.</p></div></div>
+  </div>
+</div>
+
+<div class="siteftr">The Pink Elephants Support Network · Suite 6.03, 1753 Botany Road, Banksmeadow NSW 2019 (mocked footer)</div>
+
+<div class="helpbar" role="complementary">
+  <span>Need someone right now?</span>
+  <a href="tel:1300726306">Call 1300 726 306</a>
+  <a href="https://www.pinkelephants.org.au/live-chat" target="_blank" rel="noopener">Open LiveChat</a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var A = { who:null, loss:null, when:null, needs:[], matters:[] };
+  var step = 0;
+  var showMoreNeeds = false;
+
+  // Ordered so "not sure" and "prefer not to say" sit alongside the named
+  // types rather than as an afterthought at the bottom, and every clinical
+  // term is paired with a plain-language explanation (per Miscarriage
+  // Association language guidance) rather than a second clinical name.
+  var LOSSES = [
+    ["unsure","I haven't been told which","Very common — the list below might help you recognise it"],
+    ["skip","I would rather not say",""],
+    ["missed","Missed or silent miscarriage","Found at a scan, without earlier signs"],
+    ["chemical","A very early loss","Usually before 5 weeks, often after a positive test"],
+    ["complete","Complete miscarriage","All the pregnancy tissue has passed"],
+    ["incomplete","Incomplete miscarriage","Some pregnancy tissue remains and needs care"],
+    ["inevitable","A loss already in progress","Bleeding and cramping mean it cannot be stopped"],
+    ["spontaneous","Spontaneous miscarriage","Happened naturally, at any point in the first 20 weeks"],
+    ["ectopic","Ectopic pregnancy","A pregnancy developing outside the uterus"],
+    ["blighted","Early embryo loss","A pregnancy sac formed but a baby did not develop"],
+    ["molar","Molar pregnancy","Cells grew in the uterus instead of a baby"],
+    ["recurrent","Recurrent loss","Two or more losses in a row"],
+    ["tfmr","Ending a pregnancy for medical reasons",""]
+  ];
+
+  var WHEN = [
+    ["now","It is happening right now, or in the last few days"],
+    ["weeks","In the last few weeks"],
+    ["months","Some months ago"],
+    ["year","A year or more ago"],
+    ["again","I am trying again, or I am pregnant again"]
+  ];
+
+  // Split into a first screen of four (per W3C guidance capping visible
+  // choices to reduce load for someone with grief-related brain fog) and
+  // three more behind a plain "show more" toggle, rather than seven at once.
+  var NEEDS = [
+    ["peer","Talk to someone who has been through it","Not a counsellor, someone who understands"],
+    ["prof","Speak to a trained counsellor",""],
+    ["quiet","Read something quietly on my own",""],
+    ["others","Be around others going through the same thing",""]
+  ];
+  var NEEDS_MORE = [
+    ["understand","Understand what happened to my body",""],
+    ["partner","Help my partner, or help them support me",""],
+    ["structure","Something structured to work through over time",""]
+  ];
+
+  var MATTERS = [
+    ["regional","I live regionally or remotely"],
+    ["multiple","This is not my first loss"],
+    ["ttc","I want to try again"],
+    ["alone","The people around me do not understand"],
+    ["symptoms","I am still having physical symptoms"]
+  ];
+
+  var SERVICES = {
+    livechat:{
+      name:"1:1 LiveChat with a Peer Support Companion",
+      desc:"An immediate one-to-one chat with a trained volunteer who has had a loss herself. Not a bot, and not a counsellor. Someone who has been where you are.",
+      meta:"Free. Check the site for today's session times.",
+      href:"https://www.pinkelephants.org.au/live-chat",
+      cta:"Open LiveChat"
+    },
+    helpline:{
+      name:"Pregnancy Loss Helpline, delivered by PANDA",
+      desc:"Free telephone counselling with qualified counsellors who specialise in pregnancy loss, for you and for your partner.",
+      meta:"1300 726 306. Mon to Fri 9am to 7:30pm, Sat 9am to 4pm AEST.",
+      href:"https://www.pinkelephants.org.au/helpline",
+      cta:"About the helpline"
+    },
+    circle:{
+      name:"The Circle",
+      desc:"A personalised support journey that sends you resources matched to your type of loss, at the pace you choose, straight to your inbox.",
+      meta:"Free to join.",
+      href:"https://www.pinkelephants.org.au/the-circle",
+      cta:"Join The Circle"
+    },
+    communities:{
+      name:"Online communities",
+      desc:"Private Facebook groups where women talk honestly about loss. You can read for as long as you like before you say anything.",
+      meta:"Private groups, request to join.",
+      href:"https://www.pinkelephants.org.au/find-support",
+      cta:"Find the groups"
+    },
+    plc:{
+      name:"Pregnancy Loss Circle",
+      desc:"A six-week group programme covering a different part of the loss experience each week, with information, skills and mindfulness.",
+      meta:"Runs in intakes. Expression of interest required.",
+      href:"https://www.pinkelephants.org.au/find-support",
+      cta:"Register interest"
+    },
+    understand:{
+      name:"Understanding your type of loss",
+      desc:"Plain explanations of what happened and why, written for people who were sent home without one.",
+      meta:"Read at your own pace.",
+      href:"https://www.pinkelephants.org.au/types-of-miscarriage",
+      cta:"Read about your loss"
+    },
+    wellbeing:{
+      name:"Emotional wellbeing resources",
+      desc:"A suite of resources to sit with when talking is too much, including the Miscarriage Survival Guide.",
+      meta:"Free to download.",
+      href:"https://www.pinkelephants.org.au/find-support",
+      cta:"Browse resources"
+    },
+    ttc:{
+      name:"Trying to conceive, and pregnancy after loss",
+      desc:"Information built with health experts for trying again, and a community for the particular anxiety of being pregnant after a loss.",
+      meta:"",
+      href:"https://www.pinkelephants.org.au/find-support",
+      cta:"See the resources"
+    },
+    loved:{
+      name:"Supporting someone you love",
+      desc:"What to say, what not to say, and how to keep showing up after everyone else has moved on. Includes the partner advice resource.",
+      meta:"",
+      href:"https://www.pinkelephants.org.au/help-a-loved-one",
+      cta:"How to help"
+    },
+    hp:{
+      name:"For health professionals",
+      desc:"The Pregnancy Loss Care Standards, the Not Just A Loss report, and a waiting room flyer you can print for your practice.",
+      meta:"",
+      href:"https://www.pinkelephants.org.au/health-professionals",
+      cta:"Clinical resources"
+    }
+  };
+
+  function el(tag, cls, txt){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(txt != null) e.textContent = txt;
+    return e;
+  }
+
+  function renderProgress(){
+    var p = document.getElementById('prog');
+    p.innerHTML = '';
+    for(var i=0;i<5;i++){
+      var b = el('i');
+      if(i < step) b.className = 'on';
+      p.appendChild(b);
+    }
+    p.hidden = (step > 4);
+  }
+
+  // The always-visible bar at the bottom of the page (in the HTML, not
+  // rendered per-step) carries this. Real-world testing on a UK government
+  // service found people "tend to ignore anything under the start button,"
+  // so rather than repeat this inside the scrolling card on some steps and
+  // not others, it stays fixed and identical throughout.
+  function wireQuickExit(){
+    var qe = document.getElementById('quickexit');
+    if(!qe || qe._wired) return;
+    qe._wired = true;
+    qe.addEventListener('click', function(e){
+      e.preventDefault();
+      try{ window.location.replace(qe.href); }catch(err){ window.location.href = qe.href; }
+    });
+  }
+
+  function urgentNote(){
+    var d = el('div','urgent');
+    d.appendChild(el('b','','If you are bleeding heavily or in severe pain'));
+    var p = el('p');
+    p.innerHTML = 'Please seek medical care now. Call Healthdirect on <a href="tel:1800022222">1800 022 222</a> to speak to a registered nurse, or in an emergency call <a href="tel:000">000</a>. An ectopic pregnancy can be a medical emergency.';
+    d.appendChild(p);
+    return d;
+  }
+
+  function optionButton(value, label, sub, selected, onClick){
+    var b = el('button','opt');
+    b.type = 'button';
+    b.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    b.appendChild(el('span','tick'));
+    var lab = el('span','lab');
+    lab.appendChild(el('b','',label));
+    if(sub) lab.appendChild(el('small','',sub));
+    b.appendChild(lab);
+    b.addEventListener('click', function(){ onClick(value); });
+    return b;
+  }
+
+  function navRow(canGo, onNext, nextLabel){
+    var n = el('div','nav');
+    var back = el('button','ghost','Back');
+    back.type='button';
+    back.hidden = (step === 0);
+    back.addEventListener('click', function(){ step--; render(); });
+    n.appendChild(back);
+    var next = el('button','primary', nextLabel || 'Continue');
+    next.type='button';
+    next.disabled = !canGo;
+    next.addEventListener('click', onNext);
+    n.appendChild(next);
+    return n;
+  }
+
+  function showsUrgent(){
+    return A.loss === 'ectopic' || A.when === 'now' || A.matters.indexOf('symptoms') > -1;
+  }
+
+  // ---------- scoring ----------
+  function buildResults(){
+    var picks = [];
+    var n = A.needs, m = A.matters;
+    function has(arr,v){ return arr.indexOf(v) > -1; }
+
+    if(A.who === 'pro'){
+      picks.push({k:'hp', why:'You are referring rather than seeking support, so this is the set built for clinicians.'});
+      picks.push({k:'circle', why:'The fastest thing you can give a patient before she leaves the room. She receives support matched to her type of loss without having to search for it.'});
+      picks.push({k:'understand', why:'Worth reading so you can name her loss type accurately, which is what she will search for afterwards.'});
+      return picks;
+    }
+
+    if(A.who === 'loved'){
+      picks.push({k:'loved', why:'Written for the person standing next to the loss rather than inside it.'});
+      if(has(n,'peer') || has(m,'alone')){
+        picks.push({k:'livechat', why:'Companions will talk to partners and family too, not only the woman who had the loss.'});
+      }
+      picks.push({k:'circle', why:'You can pass this on when she is ready, and it arrives gently instead of all at once.'});
+      picks.push({k:'helpline', why:'Supporting someone through a loss is its own grief. The counsellors will speak with you as well.'});
+      return picks;
+    }
+
+    // for herself
+    var urgentish = (A.when === 'now' || A.when === 'weeks');
+
+    if(has(n,'peer') || has(m,'alone') || urgentish){
+      picks.push({k:'livechat', why: has(m,'alone')
+        ? 'You said the people around you do not understand. Every companion on LiveChat has had a loss of her own, so you will not have to explain why it matters.'
+        : (has(n,'peer')
+          ? 'You asked to speak to someone who has been through it. This is exactly that, and you can start today.'
+          : 'It is very recent. Immediate contact with someone who understands tends to help more than anything written.')});
+    }
+
+    if(has(n,'prof') || A.when === 'year' || has(m,'multiple')){
+      picks.push({k:'helpline', why: has(m,'multiple')
+        ? 'More than one loss carries a weight that peer support alone often cannot hold. These counsellors specialise in exactly this.'
+        : (A.when === 'year'
+          ? 'Grief that is still present a year on deserves proper counselling, and it is free.'
+          : 'You asked for a trained counsellor. This is free, by phone, and specific to pregnancy loss.')});
+    }
+
+    if(has(n,'quiet') || has(n,'understand') || A.loss !== 'skip'){
+      picks.push({k:'circle', why: A.loss && A.loss !== 'skip' && A.loss !== 'unsure'
+        ? 'The Circle personalises what it sends you by type of loss, so what arrives is about your loss rather than miscarriage in general.'
+        : 'Support arrives a piece at a time rather than all at once, and you set the pace.'});
+    }
+
+    if(has(n,'understand') || A.loss === 'unsure'){
+      picks.push({k:'understand', why: A.loss === 'unsure'
+        ? 'Many women are never clearly told which type of loss they had. This explains each one in plain language so you can recognise yours.'
+        : 'You wanted to understand what happened to your body. Start here.'});
+    }
+
+    if(has(n,'others') || has(m,'regional')){
+      picks.push({k:'communities', why: has(m,'regional')
+        ? 'Living regionally should not decide how much support you get. These groups are the same wherever you are, at any hour.'
+        : 'You can read other women’s posts for weeks before writing anything yourself. Most people do.'});
+    }
+
+    if(has(n,'structure') || A.when === 'months'){
+      picks.push({k:'plc', why: has(n,'structure')
+        ? 'You asked for something structured. Six weeks, one part of the experience at a time.'
+        : 'A few months on is often when the immediate support has faded and something steadier helps.'});
+    }
+
+    if(has(n,'partner')){
+      picks.push({k:'loved', why:'Includes the partner advice resource, which is written for them rather than about them.'});
+    }
+
+    if(has(m,'ttc') || A.when === 'again'){
+      picks.push({k:'ttc', why: A.when === 'again'
+        ? 'Pregnancy after loss is its own experience, and it is not the same as a first pregnancy. There is a community specifically for it.'
+        : 'For when you are ready, built with health experts rather than guesswork.'});
+    }
+
+    if(has(n,'quiet') && picks.length < 4){
+      picks.push({k:'wellbeing', why:'For the days when talking to anyone is too much.'});
+    }
+
+    if(!picks.length){
+      picks.push({k:'circle', why:'A gentle place to start when you are not sure what you need yet. Most people are not.'});
+      picks.push({k:'livechat', why:'And someone to talk to whenever you would rather not be alone with it.'});
+    }
+
+    // de-duplicate, keep first reason
+    var seen = {}, out = [];
+    for(var i=0;i<picks.length;i++){
+      if(!seen[picks[i].k]){ seen[picks[i].k]=1; out.push(picks[i]); }
+    }
+    return out;
+  }
+
+  function lossLabel(){
+    for(var i=0;i<LOSSES.length;i++){ if(LOSSES[i][0]===A.loss) return LOSSES[i][1]; }
+    return null;
+  }
+
+  // Builds a plain-text version of the results, for the person to keep on
+  // their own device. Nothing here is sent anywhere by this page — the
+  // email/text buttons only open the person's own mail or messages app
+  // with this text already typed in, the way Tommy's UK miscarriage tool
+  // lets someone email a result to themselves rather than Pink Elephants
+  // storing it. Kept short and unclinical, since it may be read later or
+  // by someone else the person chooses to share it with.
+  function summaryText(results){
+    var lines = [];
+    lines.push('Your Pink Elephants support summary');
+    lines.push('');
+    results.slice(0,4).forEach(function(r){
+      var s = SERVICES[r.k];
+      lines.push('• ' + s.name + (s.meta ? ' — ' + s.meta : ''));
+      lines.push('  ' + s.href);
+    });
+    lines.push('');
+    lines.push('Need someone right now? Call 1300 726 306 (Pregnancy Loss Helpline) or visit pinkelephants.org.au/live-chat');
+    return lines.join('\n');
+  }
+
+  function shortSmsText(results){
+    var top = results[0] ? SERVICES[results[0].k] : null;
+    var bits = [];
+    if(top) bits.push('Pink Elephants suggested: ' + top.name + ' — ' + top.href);
+    bits.push('Helpline 1300 726 306, pinkelephants.org.au/live-chat');
+    return bits.join('. ');
+  }
+
+  function saveBox(results){
+    var box = el('div','savebox');
+    box.appendChild(el('h4','','Keep this for later'));
+    box.appendChild(Object.assign(el('p'),{textContent:'This closes with the tab. Send it to your own email or phone if you would rather not lose it, or come back to it when you are ready.'}));
+
+    var row = el('div','saverow');
+    var text = summaryText(results);
+    var sms = shortSmsText(results);
+
+    var copyBtn = el('button','savebtn','Copy summary');
+    copyBtn.type = 'button';
+    copyBtn.addEventListener('click', function(){
+      var fallback = box.querySelector('.savefallback');
+      function showFallback(){
+        if(!fallback){
+          fallback = el('textarea','savefallback');
+          fallback.readOnly = true;
+          fallback.value = text;
+          box.appendChild(fallback);
+        }
+        fallback.hidden = false;
+        fallback.focus();
+        fallback.select();
+      }
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){
+            copyBtn.textContent = 'Copied';
+            copyBtn.classList.add('done');
+          }, showFallback);
+        } else { showFallback(); }
+      } catch(e){ showFallback(); }
+    });
+    row.appendChild(copyBtn);
+
+    var emailBtn = el('a','savebtn','Email this to myself');
+    emailBtn.href = 'mailto:?subject=' + encodeURIComponent('Your Pink Elephants support summary') + '&body=' + encodeURIComponent(text);
+    row.appendChild(emailBtn);
+
+    var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+    var smsBtn = el('a','savebtn','Text this to my phone');
+    smsBtn.href = 'sms:' + (isIOS ? '&' : '?') + 'body=' + encodeURIComponent(sms);
+    row.appendChild(smsBtn);
+
+    box.appendChild(row);
+    return box;
+  }
+
+  // ---------- render ----------
+  function render(){
+    var c = document.getElementById('card');
+    c.innerHTML = '';
+    renderProgress();
+
+    if(step === 0){
+      c.appendChild(Object.assign(el('h1'),{textContent:'You are not alone in this'}));
+      var ip = el('p','intro');
+      ip.textContent = 'Pink Elephants offers support in a few different ways, and we want to help you find what fits where you are right now. A few short questions, and we will point you toward it. Nothing here is saved or shared, you do not need to give your name, and you can skip anything you would rather not answer.';
+      c.appendChild(ip);
+      var start = el('button','primary','Start');
+      start.type='button';
+      start.addEventListener('click', function(){ step=1; render(); });
+      var nv = el('div','nav');
+      nv.appendChild(el('span'));
+      nv.appendChild(start);
+      c.appendChild(nv);
+      return;
+    }
+
+    if(step === 1){
+      c.appendChild(Object.assign(el('h2','q'),{textContent:'Who are you looking for support for?'}));
+      c.appendChild(Object.assign(el('p','help'),{textContent:'We ask so the next few questions are the right ones to ask, not to sort you into a category.'}));
+      var o1 = el('div','opts');
+      [['me','Myself',''],['loved','Someone I love','A partner, daughter, sister or friend'],['pro','My patients','I am a health professional']]
+        .forEach(function(r){
+          o1.appendChild(optionButton(r[0], r[1], r[2], A.who===r[0], function(v){
+            A.who = v;
+            if(v === 'pro'){ step = 5; } else { step = 2; }
+            render();
+          }));
+        });
+      c.appendChild(o1);
+      c.appendChild(navRow(!!A.who, function(){ step = (A.who==='pro') ? 5 : 2; render(); }));
+      return;
+    }
+
+    if(step === 2){
+      if(showsUrgent()) c.appendChild(urgentNote());
+      c.appendChild(Object.assign(el('h2','q'),{textContent: A.who==='loved' ? 'What kind of loss did they have?' : 'What kind of loss was it?'}));
+      c.appendChild(Object.assign(el('p','help'),{textContent:'This helps us send the right resources — every type of loss here is valid and worthy of support. If you would rather not say, that is a fine answer too.'}));
+      var o2 = el('div','opts');
+      LOSSES.forEach(function(r){
+        o2.appendChild(optionButton(r[0], r[1], r[2], A.loss===r[0], function(v){
+          A.loss = v; step = 3; render();
+        }));
+      });
+      c.appendChild(o2);
+      c.appendChild(navRow(!!A.loss, function(){ step=3; render(); }));
+      return;
+    }
+
+    if(step === 3){
+      if(showsUrgent()) c.appendChild(urgentNote());
+      c.appendChild(Object.assign(el('h2','q'),{textContent:'When did it happen?'}));
+      c.appendChild(Object.assign(el('p','help'),{textContent:'Grief has no timeline, and this will not change what support you are offered — it only helps us pace what we send you.'}));
+      var o3 = el('div','opts');
+      WHEN.forEach(function(r){
+        o3.appendChild(optionButton(r[0], r[1], '', A.when===r[0], function(v){
+          A.when = v; step = 4; render();
+        }));
+      });
+      c.appendChild(o3);
+      c.appendChild(navRow(!!A.when, function(){ step=4; render(); }));
+      return;
+    }
+
+    if(step === 4){
+      c.appendChild(Object.assign(el('h2','q'),{textContent:'What would help most right now?'}));
+      c.appendChild(Object.assign(el('p','help'),{textContent:'Choose as many as you like. It is fine if this changes tomorrow.'}));
+      var o4 = el('div','opts');
+      NEEDS.forEach(function(r){
+        o4.appendChild(optionButton(r[0], r[1], r[2], A.needs.indexOf(r[0])>-1, function(v){
+          var i = A.needs.indexOf(v);
+          if(i>-1) A.needs.splice(i,1); else A.needs.push(v);
+          render();
+        }));
+      });
+      if(showMoreNeeds){
+        NEEDS_MORE.forEach(function(r){
+          o4.appendChild(optionButton(r[0], r[1], r[2], A.needs.indexOf(r[0])>-1, function(v){
+            var i = A.needs.indexOf(v);
+            if(i>-1) A.needs.splice(i,1); else A.needs.push(v);
+            render();
+          }));
+        });
+      }
+      c.appendChild(o4);
+      if(!showMoreNeeds){
+        var more = el('button','morelink','A few more options');
+        more.type='button';
+        more.addEventListener('click', function(){ showMoreNeeds = true; render(); });
+        c.appendChild(more);
+      }
+      c.appendChild(navRow(true, function(){ step=5; render(); }, A.needs.length ? 'Continue' : 'Skip this'));
+      return;
+    }
+
+    if(step === 5){
+      if(A.who === 'pro'){ step = 6; render(); return; }
+      c.appendChild(Object.assign(el('h2','q'),{textContent:'Anything else we should know?'}));
+      c.appendChild(Object.assign(el('p','help'),{textContent:'This helps us match you with a peer support companion who has been somewhere like where you are.'}));
+      var o5 = el('div','opts');
+      MATTERS.forEach(function(r){
+        o5.appendChild(optionButton(r[0], r[1], '', A.matters.indexOf(r[0])>-1, function(v){
+          var i = A.matters.indexOf(v);
+          if(i>-1) A.matters.splice(i,1); else A.matters.push(v);
+          render();
+        }));
+      });
+      c.appendChild(o5);
+      c.appendChild(navRow(true, function(){ step=6; render(); }, A.matters.length ? 'See my support' : 'Skip and see my support'));
+      return;
+    }
+
+    // ---- results ----
+    var results = buildResults();
+    var head = el('div','res-head');
+    head.appendChild(Object.assign(el('h1'),{textContent: A.who==='pro' ? 'Resources for your practice' : 'Here is what we would start with'}));
+
+    var sum = el('div','summary');
+    if(A.who === 'pro'){
+      sum.textContent = 'Everything below is free to use and to hand to a patient.';
+    } else {
+      var bits = [];
+      var ll = lossLabel();
+      if(ll && A.loss !== 'skip' && A.loss !== 'unsure') bits.push(ll.toLowerCase());
+      if(A.loss === 'unsure') bits.push('a loss you have not had clearly named');
+      if(A.when === 'now') bits.push('happening now');
+      else if(A.when === 'weeks') bits.push('in the last few weeks');
+      else if(A.when === 'months') bits.push('some months ago');
+      else if(A.when === 'year') bits.push('a year or more ago');
+      else if(A.when === 'again') bits.push('and you are trying again');
+      sum.textContent = (A.who==='loved' ? 'For someone you love. ' : '') +
+        (bits.length ? 'Based on ' + bits.join(', ') + '. ' : '') +
+        'Nothing here is a referral or a diagnosis. Take what helps and leave the rest.';
+    }
+    head.appendChild(sum);
+    c.appendChild(head);
+
+    if(showsUrgent() && A.who !== 'pro'){
+      c.appendChild(urgentNote());
+    }
+
+    var primary = results.slice(0,3);
+    var rest = results.slice(3);
+
+    primary.forEach(function(r, idx){
+      var s = SERVICES[r.k];
+      var m = el('div','match' + (idx===0 ? ' top' : ''));
+      if(idx===0) m.appendChild(el('div','match-rank','Start here'));
+      m.appendChild(Object.assign(el('h3'),{textContent:s.name}));
+      m.appendChild(Object.assign(el('p','desc'),{textContent:s.desc}));
+      m.appendChild(Object.assign(el('p','why'),{textContent:r.why}));
+      if(s.meta) m.appendChild(Object.assign(el('p','meta'),{textContent:s.meta}));
+      var a = el('a','go',s.cta);
+      a.href = s.href; a.target='_blank'; a.rel='noopener';
+      m.appendChild(a);
+      c.appendChild(m);
+    });
+
+    if(rest.length){
+      c.appendChild(Object.assign(el('div','sect-label'),{textContent:'When you are ready'}));
+      var list = el('div','reslist');
+      rest.forEach(function(r){
+        var s = SERVICES[r.k];
+        var it = el('div','resitem');
+        it.appendChild(Object.assign(el('span'),{textContent:s.name}));
+        var a = el('a','',s.cta);
+        a.href=s.href; a.target='_blank'; a.rel='noopener';
+        it.appendChild(a);
+        list.appendChild(it);
+      });
+      c.appendChild(list);
+    }
+
+    c.appendChild(saveBox(results));
+
+    var ag = el('div','nav restart');
+    var again = el('button','ghost','Start over');
+    again.type='button';
+    again.addEventListener('click', function(){
+      A = { who:null, loss:null, when:null, needs:[], matters:[] };
+      step = 0; render();
+    });
+    ag.appendChild(again);
+    ag.appendChild(el('span'));
+    c.appendChild(ag);
+  }
+
+  wireQuickExit();
+  render();
+})();
+</script>

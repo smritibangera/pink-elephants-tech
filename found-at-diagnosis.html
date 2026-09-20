@@ -1,0 +1,687 @@
+<title>Found at Diagnosis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#241C2B;
+    --ink-soft:#544A5C;
+    --muted:#7A6E80;
+    --paper:#FBF8F9;
+    --surface:#FFFFFF;
+    --line:#E7DEE6;
+    --line-strong:#D3C5D0;
+    --accent:#D6316F;
+    --accent-soft:#FBE9F1;
+    --crit:#B32B42;
+    --crit-bg:#FBEAEC;
+    --warn:#A8651B;
+    --warn-bg:#FBF0E2;
+    --ok:#1F6B52;
+    --ok-bg:#E6F2ED;
+    --band:#F3ECF1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F2EAF0;
+      --ink-soft:#C5B7C6;
+      --muted:#9C8DA0;
+      --paper:#17121B;
+      --surface:#1E1824;
+      --line:#332A3A;
+      --line-strong:#463A4E;
+      --accent:#FF6FA3;
+      --accent-soft:#3A1E2C;
+      --crit:#FF8A9B;
+      --crit-bg:#3A1F25;
+      --warn:#E5A85C;
+      --warn-bg:#392A18;
+      --ok:#6FC9A6;
+      --ok-bg:#16332A;
+      --band:#211A28;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F2EAF0;
+    --ink-soft:#C5B7C6;
+    --muted:#9C8DA0;
+    --paper:#17121B;
+    --surface:#1E1824;
+    --line:#332A3A;
+    --line-strong:#463A4E;
+    --accent:#FF6FA3;
+    --accent-soft:#3A1E2C;
+    --crit:#FF8A9B;
+    --crit-bg:#3A1F25;
+    --warn:#E5A85C;
+    --warn-bg:#392A18;
+    --ok:#6FC9A6;
+    --ok-bg:#16332A;
+    --band:#211A28;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    margin:0;
+    padding-inline:20px;
+    padding-block:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;}
+  .measure{max-width:65ch;}
+
+  h1,h2,h3{text-wrap:balance;margin:0;}
+  h1{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-weight:400;
+    font-size:clamp(40px,7vw,68px);
+    line-height:1.02;
+    letter-spacing:-0.015em;
+  }
+  h2{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-weight:400;
+    font-size:clamp(27px,4.2vw,38px);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+  }
+  h3{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:-0.005em;
+  }
+  p{margin:0;}
+  a{color:var(--accent);text-underline-offset:3px;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* masthead */
+  header.masthead{
+    padding-block:64px 44px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .lede{
+    font-size:clamp(18px,2.4vw,21px);
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:56ch;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 26px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+
+  section{padding-block:52px;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+  .stack{display:flex;flex-direction:column;gap:18px;}
+  .stack-tight{display:flex;flex-direction:column;gap:11px;}
+
+  /* thesis */
+  .thesis{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:3px;
+    padding:34px 32px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .thesis .eyebrow{color:rgba(242,234,240,.6);}
+  .thesis p.big{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-size:clamp(24px,3.6vw,32px);
+    line-height:1.22;
+    color:var(--paper);
+    max-width:26ch;
+  }
+  .thesis p.sub{color:rgba(242,234,240,.78);font-size:15px;max-width:58ch;}
+  :root[data-theme="dark"] .thesis, :root:not([data-theme="light"]) .thesis{background:#0E0A12;}
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]) .thesis{background:var(--ink);}
+  }
+
+  /* evidence table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);}
+  table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px;}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:500;
+    background:var(--band);
+  }
+  tr:last-child td{border-bottom:none;}
+  td.num{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .chip{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:2px;
+    white-space:nowrap;
+    font-weight:500;
+  }
+  .chip.c{background:var(--crit-bg);color:var(--crit);}
+  .chip.w{background:var(--warn-bg);color:var(--warn);}
+  .chip.o{background:var(--ok-bg);color:var(--ok);}
+
+  .caption{font-size:12.5px;color:var(--muted);line-height:1.5;}
+
+  /* criteria */
+  .criteria{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+  .crit-item{background:var(--surface);padding:22px 20px;display:flex;flex-direction:column;gap:7px;}
+  .crit-item .n{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:0.08em;
+  }
+  .crit-item p{font-size:14px;color:var(--ink-soft);line-height:1.55;}
+  @media(min-width:660px){.criteria{grid-template-columns:1fr 1fr;}}
+
+  /* phases */
+  .phase{
+    display:grid;
+    gap:20px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .phase:first-of-type{border-top:none;}
+  @media(min-width:720px){
+    .phase{grid-template-columns:132px 1fr;gap:32px;}
+  }
+  .phase-tag{display:flex;flex-direction:column;gap:5px;}
+  .phase-tag .pn{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-size:34px;
+    line-height:1;
+    color:var(--accent);
+  }
+  .phase-tag .wk{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+  }
+  .phase-body{display:flex;flex-direction:column;gap:14px;}
+  .phase-body h3{font-size:19px;font-family:'IBM Plex Sans',sans-serif;font-weight:600;}
+  ul.ticks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+  ul.ticks li{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    padding-left:17px;
+    position:relative;
+    line-height:1.5;
+  }
+  ul.ticks li::before{
+    content:"";
+    position:absolute;
+    left:0;top:9px;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--line-strong);
+  }
+  .why{
+    background:var(--accent-soft);
+    border-left:2px solid var(--accent);
+    padding:13px 16px;
+    font-size:14px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    border-radius:0 3px 3px 0;
+  }
+  .why b{color:var(--ink);font-weight:600;}
+
+  /* gantt */
+  .ganttwrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:20px 18px 16px;}
+  .gantt{min-width:660px;display:grid;grid-template-columns:172px repeat(16,1fr);gap:5px 0;align-items:center;}
+  .g-hd{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    color:var(--muted);
+    text-align:center;
+    padding-bottom:7px;
+    font-variant-numeric:tabular-nums;
+  }
+  .g-lab{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    padding-right:14px;
+    line-height:1.3;
+  }
+  .g-lab.grp{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    padding-top:12px;
+    padding-bottom:3px;
+    font-weight:500;
+  }
+  .g-spacer{grid-column:2 / -1;border-top:1px solid var(--line);height:1px;align-self:center;margin-top:11px;}
+  .bar{height:17px;border-radius:2px;position:relative;}
+  .bar.p1{background:#D6316F;}
+  .bar.p2{background:#A8417F;}
+  .bar.p3{background:#6E4A87;}
+  .bar.p4{background:#41507F;}
+  .milestone{
+    grid-row:auto;
+    justify-self:start;
+    width:0;height:0;
+    border-left:6px solid transparent;
+    border-right:6px solid transparent;
+    border-bottom:10px solid var(--ink);
+    transform:translateX(-6px);
+  }
+  .g-legend{
+    display:flex;flex-wrap:wrap;gap:6px 18px;
+    margin-top:16px;padding-top:13px;border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);
+  }
+  .g-legend span{display:flex;align-items:center;gap:6px;}
+  .sw{width:20px;height:8px;border-radius:2px;display:inline-block;}
+
+  /* data cards */
+  .datagrid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+  @media(min-width:700px){.datagrid{grid-template-columns:repeat(3,1fr);}}
+  .datacard{background:var(--surface);padding:22px 20px;display:flex;flex-direction:column;gap:9px;}
+  .datacard .pill{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .datacard p{font-size:14px;color:var(--ink-soft);line-height:1.55;}
+
+  .callout{
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    padding:24px 22px;
+    background:var(--surface);
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .quote{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-style:italic;
+    font-size:19px;
+    line-height:1.4;
+    color:var(--ink);
+    max-width:52ch;
+  }
+  .attr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.04em;}
+
+  ol.qs{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:10px;}
+  ol.qs li{font-size:15px;color:var(--ink-soft);line-height:1.55;padding-left:4px;}
+  ol.qs li b{color:var(--ink);font-weight:600;}
+
+  footer{padding-block:44px 64px;display:flex;flex-direction:column;gap:10px;}
+  .mono-sm{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);line-height:1.7;}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Project overview / prepared for Sam Payne &amp; Jennifer Tupaea</div>
+    <h1>Found at<br>Diagnosis</h1>
+    <p class="lede">Pink Elephants has ten years of the right answers. The problem is that the machines now answering health questions for Australians cannot read a single word of them.</p>
+    <div class="meta-row">
+      <span>SMRITI BANGERA</span>
+      <span>21 SEPT 2026</span>
+      <span>AI SEO &amp; DISCOVERABILITY</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="thesis">
+      <div class="eyebrow">The finding</div>
+      <p class="big">Every page on pinkelephants.org.au ships with an empty body.</p>
+      <p class="sub">The site is an Angular app that builds its content in the visitor's browser after the page arrives. Google runs that code, so it can still index you. The AI crawlers that feed ChatGPT, Claude, Perplexity and Google's AI Overviews mostly do not. What they fetch is about 7KB of scaffolding, a title, a meta description, and nothing else. The resources, the loss types, the helpline, the peer support, all of it is invisible to them.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 / What I found</div>
+      <h2>The diagnostic</h2>
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">I ran this against the live site on 20 September. Every figure below is measured, not estimated.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Check</th><th>What the site returns</th><th>Consequence</th><th>Severity</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Readable text in page source</td>
+            <td class="num">0 characters<br><span style="color:var(--muted);font-size:12px;">(7,161 after JavaScript runs)</span></td>
+            <td>AI crawlers retrieve a blank page. You cannot be quoted from a page with no text.</td>
+            <td><span class="chip c">Critical</span></td>
+          </tr>
+          <tr>
+            <td>Structured data (schema.org)</td>
+            <td class="num">0 blocks</td>
+            <td>No machine-readable signal that you are a medical charity, that the helpline is a service, or what its hours are.</td>
+            <td><span class="chip c">Critical</span></td>
+          </tr>
+          <tr>
+            <td>robots.txt</td>
+            <td class="num">404</td>
+            <td>No crawl directives at all. You have never made a decision about which AI crawlers may use your content.</td>
+            <td><span class="chip w">High</span></td>
+          </tr>
+          <tr>
+            <td>sitemap.xml</td>
+            <td class="num">404</td>
+            <td>Crawlers must guess your page list by following links, and the links only appear after JavaScript runs.</td>
+            <td><span class="chip w">High</span></td>
+          </tr>
+          <tr>
+            <td>Pages per loss type</td>
+            <td class="num">13 types<br>on 1 page</td>
+            <td>Ectopic, molar, blighted ovum, recurrent loss and nine more share one URL, so none of them can rank or be cited for its own name.</td>
+            <td><span class="chip c">Critical</span></td>
+          </tr>
+          <tr>
+            <td>Clicks to a loss-specific resource</td>
+            <td class="num">4 to 5</td>
+            <td>Home &rsaquo; Your Support Journey &rsaquo; Understanding Early Pregnancy Loss &rsaquo; Types of Miscarriage &rsaquo; the answer.</td>
+            <td><span class="chip w">High</span></td>
+          </tr>
+          <tr>
+            <td>Titles and meta descriptions</td>
+            <td class="num">Present,<br>well written</td>
+            <td>Genuinely good. This is the one layer already doing its job, and it is why you still rank on your own name.</td>
+            <td><span class="chip o">Healthy</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stack" style="margin-top:30px;">
+      <h3>The test that matters</h3>
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">I searched the way a woman would the night she is told, without using your name: <em>miscarriage support Australia, where to get help after early pregnancy loss</em>.</p>
+      <div class="callout">
+        <p class="quote">Not one result was a Pink Elephants page.</p>
+        <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">The answers belonged to Pregnancy Birth and Baby, Miscarriage Australia, MISS, the Stillbirth CRE and the Perinatal Loss Centre. Pink Elephants appeared twice, both times through somebody else's website: PANDA's page about your helpline, and Healthdirect's partner listing. You are being described by third parties rather than heard directly, and every one of those mentions is a page you do not control and cannot update.</p>
+        <p class="attr">NON-BRANDED SEARCH, 20 SEPT 2026</p>
+      </div>
+      <p class="caption">This is the same failure Sam described in the interview, seen from the other end. The referral pathway is not only breaking in the consulting room. It is breaking at the moment the woman goes looking on her own, which is the larger of the two audiences and the one nobody has to remember your name to reach.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 / How I sequenced it</div>
+      <h2>Prioritisation logic</h2>
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">I ordered this by dependency and reversibility, not by effort or by what demos well. Four tests, applied in order.</p>
+    </div>
+
+    <div class="criteria">
+      <div class="crit-item">
+        <div class="n">TEST 01</div>
+        <h3>Does everything else depend on it?</h3>
+        <p>Foundations first, even when they are invisible. New pages, campaigns and ad spend all pour into the same unreadable site. Fixing rendering multiplies every future thing you do. Doing it later means redoing the work in between.</p>
+      </div>
+      <div class="crit-item">
+        <div class="n">TEST 02</div>
+        <h3>Does it multiply what you already own?</h3>
+        <p>You have ten years of resources, the 2022 State of Early Pregnancy Loss report, the Care Standards and Not Just A Loss. Making existing assets legible beats commissioning new ones. Leverage before creation.</p>
+      </div>
+      <div class="crit-item">
+        <div class="n">TEST 03</div>
+        <h3>Can it be measured inside its own phase?</h3>
+        <p>Anything that cannot be proven within its phase gets scheduled after something that can. This is why week one is instrumentation: without a baseline, every later claim is an opinion.</p>
+      </div>
+      <div class="crit-item">
+        <div class="n">TEST 04</div>
+        <h3>Could it reach someone in grief before it is right?</h3>
+        <p>Work that touches a woman at her worst moment moves to the slowest lane with the most review. Technical plumbing can ship fast because a mistake is invisible. A wrong routing decision is not.</p>
+      </div>
+    </div>
+
+    <div class="stack" style="margin-top:28px;">
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">Applying those four gives an order that is close to the opposite of what is most tempting. The quiz is the most exciting piece and the easiest to show you, and it is deliberately third, because sending more people through a front door they still cannot find is the wrong problem to solve first.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 / The work</div>
+      <h2>Four phases, sixteen weeks</h2>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag"><div class="pn">1</div><div class="wk">WEEKS 1&ndash;5</div></div>
+      <div class="phase-body">
+        <h3>Make the content machine-readable</h3>
+        <ul class="ticks">
+          <li>Baseline instrumentation: GA4 events, referral sources, drop-off on the support paths, current AI answer position for 20 priority questions</li>
+          <li>Server-side rendering with Pixell, so the HTML arrives with the content already in it</li>
+          <li>robots.txt with a deliberate decision on each AI crawler, plus a real sitemap</li>
+          <li>Schema.org markup: Organization, MedicalWebPage, FAQPage, and the helpline as a Service with its actual hours</li>
+        </ul>
+        <div class="why"><b>Why first:</b> it is the cheapest phase and the only one everything else stands on. It adds no new content and no new risk to the community, and it turns ten years of existing writing from invisible into quotable. If we only ever did this phase, it would still be the highest-return work on the list.</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag"><div class="pn">2</div><div class="wk">WEEKS 4&ndash;11</div></div>
+      <div class="phase-body">
+        <h3>One page per question</h3>
+        <ul class="ticks">
+          <li>Break the 13 loss types onto their own URLs, each answering the questions actually asked about that loss</li>
+          <li>Rewrite the opening of each page to answer in the first 40 words, because that is the part an AI quotes</li>
+          <li>Publish the 2022 report and Care Standards as readable pages, not only as PDFs behind a form</li>
+          <li>Rebuild the health professional hub around referral, with the GP waiting room flyer and care standards indexable</li>
+        </ul>
+        <div class="why"><b>Why second:</b> AI answers are assembled per passage, not per site. A woman told she has had a molar pregnancy searches those exact words, and right now there is no page on earth with your name on it that is about only that. This is where the non-branded traffic is, and it cannot start before phase 1 or the new pages are born invisible too.</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag"><div class="pn">3</div><div class="wk">WEEKS 7&ndash;14</div></div>
+      <div class="phase-body">
+        <h3>Route people in one step</h3>
+        <ul class="ticks">
+          <li>The triage quiz, tested with peer support companions before it goes anywhere near the public</li>
+          <li>Routing into the real services: The Circle, LiveChat, the PANDA helpline, the Facebook communities, Pregnancy Loss Circle</li>
+          <li>Companion matching on the dimensions women actually ask for: same loss type, regional, trying again</li>
+          <li>The data schema and consent design, built with the incoming Head of Data and Insights</li>
+        </ul>
+        <div class="why"><b>Why third:</b> this is the piece that touches a grieving woman directly, so it gets the slowest lane and the most review. It also only pays off once phases 1 and 2 are bringing strangers to the site. Building it first would mean a beautiful front door on a house nobody can find.</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag"><div class="pn">4</div><div class="wk">WEEKS 11&ndash;16</div></div>
+      <div class="phase-body">
+        <h3>Own the name and the clinical pathway</h3>
+        <ul class="ticks">
+          <li>Reclaim the brand search: a productivity app called Pink Elephants outranks you on your own name in both app stores</li>
+          <li>Correct and enrich the third-party pages already carrying you: Healthdirect, PANDA, Pregnancy Birth and Baby, SupportConnect</li>
+          <li>Referral integration groundwork with HotDoc and the practice management systems</li>
+          <li>CPD and CPE accreditation pathway, so a GP meets Pink Elephants during training rather than trying to recall it mid-consult</li>
+          <li>Readout against the week one baseline</li>
+        </ul>
+        <div class="why"><b>Why last:</b> every item here depends on somebody else saying yes, and partnership timelines are not ours to control. It also lands far better with three phases of evidence behind it. Walking into Healthdirect or HotDoc with measured reach is a different conversation from walking in with a proposal.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 / Timing</div>
+      <h2>Where the phases overlap</h2>
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">Deliberately overlapping. The content work in phase 2 starts before phase 1 finishes, because writing does not have to wait for plumbing.</p>
+    </div>
+
+    <div class="ganttwrap">
+      <div class="gantt">
+        <div></div>
+        <div class="g-hd">1</div><div class="g-hd">2</div><div class="g-hd">3</div><div class="g-hd">4</div>
+        <div class="g-hd">5</div><div class="g-hd">6</div><div class="g-hd">7</div><div class="g-hd">8</div>
+        <div class="g-hd">9</div><div class="g-hd">10</div><div class="g-hd">11</div><div class="g-hd">12</div>
+        <div class="g-hd">13</div><div class="g-hd">14</div><div class="g-hd">15</div><div class="g-hd">16</div>
+
+        <div class="g-lab grp">Phase 1 &middot; Foundations</div><div class="g-spacer"></div>
+        <div class="g-lab">Baseline &amp; instrumentation</div>
+        <div class="bar p1" style="grid-column:2 / span 2;"></div>
+        <div class="g-lab">Server-side rendering</div>
+        <div class="bar p1" style="grid-column:3 / span 4;"></div>
+        <div class="g-lab">robots, sitemap, schema</div>
+        <div class="bar p1" style="grid-column:4 / span 3;"></div>
+
+        <div class="g-lab grp">Phase 2 &middot; Answer-shaped content</div><div class="g-spacer"></div>
+        <div class="g-lab">Page architecture</div>
+        <div class="bar p2" style="grid-column:5 / span 3;"></div>
+        <div class="g-lab">13 loss-type pages</div>
+        <div class="bar p2" style="grid-column:7 / span 5;"></div>
+        <div class="g-lab">Health professional hub</div>
+        <div class="bar p2" style="grid-column:10 / span 3;"></div>
+
+        <div class="g-lab grp">Phase 3 &middot; Routing</div><div class="g-spacer"></div>
+        <div class="g-lab">Quiz build &amp; internal test</div>
+        <div class="bar p3" style="grid-column:8 / span 3;"></div>
+        <div class="g-lab">Service routing live</div>
+        <div class="bar p3" style="grid-column:10 / span 4;"></div>
+        <div class="g-lab">Data schema &amp; consent</div>
+        <div class="bar p3" style="grid-column:11 / span 5;"></div>
+
+        <div class="g-lab grp">Phase 4 &middot; Distribution</div><div class="g-spacer"></div>
+        <div class="g-lab">Brand search reclaim</div>
+        <div class="bar p4" style="grid-column:12 / span 3;"></div>
+        <div class="g-lab">Clinician pathways</div>
+        <div class="bar p4" style="grid-column:13 / span 4;"></div>
+        <div class="g-lab">Readout vs baseline</div>
+        <div class="bar p4" style="grid-column:16 / span 2;"></div>
+
+        <div class="g-lab grp">Milestones</div><div class="g-spacer"></div>
+        <div class="g-lab">Site machine-readable</div>
+        <div class="milestone" style="grid-column:7;"></div>
+        <div class="g-lab">One page per intent live</div>
+        <div class="milestone" style="grid-column:12;"></div>
+        <div class="g-lab">First structured need data</div>
+        <div class="milestone" style="grid-column:16;"></div>
+      </div>
+      <div class="g-legend">
+        <span><i class="sw" style="background:#D6316F;"></i> Foundations</span>
+        <span><i class="sw" style="background:#A8417F;"></i> Content</span>
+        <span><i class="sw" style="background:#6E4A87;"></i> Routing</span>
+        <span><i class="sw" style="background:#41507F;"></i> Distribution</span>
+        <span>&#9650; Milestone</span>
+      </div>
+    </div>
+    <p class="caption" style="margin-top:14px;">Sixteen weeks assumes one developer and Pixell's cooperation on phase 1. If Pixell cannot prioritise server-side rendering, see the risk note below: there is a two-week bridge that buys the same result while we wait.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">05 / Sam's second question</div>
+      <h2>What this unlocks for data</h2>
+      <p class="measure" style="color:var(--ink-soft);font-size:15px;">Today roughly 85,000 people a year arrive, and you learn almost nothing about what any of them needed. Attribution exists only inside Google Ads, and "how did you hear about us" is only asked once someone has already entered a programme, which means the people who bounced are never counted.</p>
+    </div>
+
+    <div class="datagrid">
+      <div class="datacard">
+        <div class="pill">SUPPORT</div>
+        <p>Every routing decision is a structured record: type of loss, how long ago, what was chosen, and just as usefully what was offered and declined. That is a live map of which programmes fit which experience, replacing the assumption that the mix you built over ten years is still the right mix.</p>
+      </div>
+      <div class="datacard">
+        <div class="pill">ADVOCACY</div>
+        <p>Unmet need by loss type and by region, updating continuously. The 2022 State of Early Pregnancy Loss report becomes a standing instrument rather than a survey you have to fund and run again. That is what turns a submission into evidence.</p>
+      </div>
+      <div class="datacard">
+        <div class="pill">AWARENESS</div>
+        <p>Publishable statistics from a population nobody else reaches: women at the point of loss rather than months later in a clinical sample. The intersectional layer Sam described is real, and it only exists if the questions are asked at the moment of need.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:26px;">
+      <h3>Privacy by design, decided up front</h3>
+      <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">The single most important design decision is one I would make in week one and never revisit: <b style="color:var(--ink);">the routing system collects need, not identity.</b> It does not need a name, a date of birth or a diagnosis to send someone to the right resource. If we hold need separately from identity from the very first record, the dataset is publishable, shareable with researchers, and structurally incapable of becoming the kind of breach that ends charities.</p>
+      <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">Retrofitting that later is close to impossible, which is why it belongs in phase 3 alongside the schema rather than in a compliance review afterwards. It also keeps the system out of health record territory deliberately: the quiz routes, it does not diagnose, and that distinction should be defended as a design constraint rather than discovered as a legal one.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">06 / Honest risks</div>
+      <h2>What could go wrong</h2>
+    </div>
+    <div class="stack">
+      <div class="callout">
+        <h3>Pixell is on the critical path</h3>
+        <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">Phase 1 needs changes to a site an external agency builds and hosts. If server-side rendering is not something they can schedule quickly, the bridge is a prerender layer that serves crawlers a fully rendered copy of the same page. It buys the result in about two weeks. I would be straight with you that it is a bridge and not the destination: Google treats dynamic rendering as a workaround rather than good practice, and we should still land proper rendering. This is the first thing I would want to ask Pixell about, ideally in week one.</p>
+      </div>
+      <div class="callout">
+        <h3>Being found is not the same as being ready</h3>
+        <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">If this works, more women arrive, and they arrive at the acute end. LiveChat is mid-migration to Freshdesk and peer support companions are volunteers. Capacity needs to be part of the phase 3 conversation, not a surprise in phase 4. I would rather stage the traffic and know the support holds than hit a number and fail the people behind it.</p>
+      </div>
+      <div class="callout">
+        <h3>The AI layer can misquote you</h3>
+        <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.55;">Making content machine-readable means models will paraphrase it, including the clinical parts. Structured markup plus unambiguous phrasing on the medical pages reduces that, and the emergency guidance on ectopic pregnancy needs to survive being summarised. This argues for doing the markup properly rather than avoiding the whole exercise, but it is a real risk and it belongs on the register.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">07 / Over to you</div>
+      <h2>What I could not see from outside</h2>
+    </div>
+    <ol class="qs">
+      <li><b>Pixell's contract.</b> Is server-side rendering within scope, and what is their turnaround on a change of that size?</li>
+      <li><b>Analytics access.</b> Is GA4 running behind the tag manager, and how far back does the history go? The baseline is only as good as what already exists.</li>
+      <li><b>Salesforce.</b> What is already captured about how people arrive, and where would routing data naturally land?</li>
+      <li><b>The Freshdesk migration.</b> When does it complete? Phase 3 routing should point at the destination, not the thing being replaced.</li>
+      <li><b>Google Ads spend.</b> Some of it is likely buying traffic that better organic and AI presence would deliver free, which would fund the rest of this.</li>
+      <li><b>The Head of Data and Insights.</b> When do they start? The phase 3 schema is genuinely better designed with them in the room than handed to them afterwards.</li>
+    </ol>
+  </section>
+
+  <section style="border-bottom:none;">
+    <div class="sec-head">
+      <div class="eyebrow">08 / Also attached</div>
+      <h2>The quiz prototype</h2>
+    </div>
+    <p class="measure" style="color:var(--ink-soft);font-size:15px;">Built against your real services and your real thirteen loss types, so you can click it rather than imagine it. It is phase 3 work shown early because it is the easiest way to make the rest of this concrete. It is a prototype: the copy needs a peer support companion's eye before it goes near anyone, which is exactly the review I would build into the phase.</p>
+  </section>
+
+  <footer>
+    <p class="mono-sm">
+      SMRITI BANGERA<br>
+      Prepared 20 September 2026 for the meeting of 21 September, Banksmeadow.<br>
+      All site measurements taken live on 20 September 2026 and reproducible on request.
+    </p>
+  </footer>
+
+</div>
